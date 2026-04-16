@@ -1,0 +1,12 @@
+RewriteEngine On
+
+# REQUISITO 3: Nascondere l'implementazione all'esterno.
+# Rigetta (Forbidden - 403) l'accesso diretto ai file nelle cartelle /core e /api
+RewriteRule ^(core|api)/(.*)$ - [F,L]
+
+# Se il file o la directory richiesta non esiste fisicamente...
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# ...reindirizza tutto a index.php passando il percorso come parametro 'url'
+RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
